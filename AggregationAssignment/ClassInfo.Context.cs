@@ -25,6 +25,6 @@ namespace AggregationAssignment
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<CourseName> Classes { get; set; }
+        public virtual DbSet<Class> Classes { get; set; }
     }
 }

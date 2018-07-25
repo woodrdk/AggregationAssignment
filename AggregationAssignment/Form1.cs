@@ -21,9 +21,9 @@ namespace AggregationAssignment
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            List<CourseName> Classes = CourseDB.GetAllCourses();
+            List<Class> Classes = CourseDB.GetAllCourses();
             cbClasses.DataSource = Classes;
-            cbClasses.DisplayMember = nameof(CourseName.ClassNumber);
+            cbClasses.DisplayMember = nameof(Class.ClassNumber);
                 
         }
 

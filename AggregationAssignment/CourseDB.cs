@@ -8,19 +8,19 @@ namespace AggregationAssignment
 {
     static class CourseDB
     {
-        public static List<CourseName> GetAllCourses()
+        public static List<Class> GetAllCourses()
         {
             ClassInfoEntities context = new ClassInfoEntities();
-            List<CourseName> allCourses =
+            List<Class> allCourses =
                 (from c in context.Classes
                  select c).ToList();
             return allCourses;
         }
 
-        public static List<CourseName> GetCourseDetails()
+        public static List<Class> GetCourseDetails()
         {
             ClassInfoEntities context = new ClassInfoEntities();
-            List<CourseName> courseDetails =
+            List<Class> courseDetails =
                 (from c in context.Classes
                  select c).ToList();
             return courseDetails;

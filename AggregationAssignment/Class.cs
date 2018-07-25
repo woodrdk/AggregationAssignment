@@ -12,7 +12,7 @@ namespace AggregationAssignment
     using System;
     using System.Collections.Generic;
     
-    public partial class CourseName
+    public partial class Class
     {
         public int ClassID { get; set; }
         public int Credits { get; set; }
