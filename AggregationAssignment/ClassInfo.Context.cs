@@ -26,5 +26,6 @@ namespace AggregationAssignment
         }
     
         public virtual DbSet<Class> Classes { get; set; }
+        public virtual DbSet<Instructor> Instructors { get; set; }
     }
 }

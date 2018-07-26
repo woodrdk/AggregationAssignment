@@ -39,16 +39,24 @@ namespace AggregationAssignment
                 pnlDetails.Visible = true;
                 btnCourseDetails.Text = "Close Course Details";
             }
-            course = cbClasses.Text;
 
-            /*
-            List<Class> Classes = CourseDB.GetCourseDetails();
-            cbClasses.DataSource = Classes;
-            cbClasses.DisplayMember = nameof(Class.ClassNumber);
-            */
+            course = cbClasses.Text; // variable of which class is picked
+
+            
+            var courseCredits = CourseDB.GetCourseCredits(course);
+            txtCredits.Text = courseCredits.Credits.ToString();
 
 
+            var courseDetails = CourseDB.GetCourseDetails(course);
+            rtbDescription.Text = courseDetails.CLDescription.ToString();
+
+            var courseTitle = CourseDB.GetCourseTitle(course);
+            txtTitle.Text = courseTitle.Title.ToString();
+
+            
         }
+
+
 
         private void btnViewInstructor_Click(object sender, EventArgs e)
         {
@@ -62,7 +70,15 @@ namespace AggregationAssignment
                 gbInstructor.Visible = true;
                 btnViewInstructor.Text = "Close Instructor Info";
             }
- 
+
+            var name = CourseDB.GetTeacherName(course);
+            txtName.Text = name.Name.ToString();
+
+           // var email = CourseDB.GetTeacherEmail(course);
+           // txtEmail.Text = email.Email.ToString();
+
+            // var office = CourseDB.GetTeacherOffice(course);
+            // txtOffice.Text = office.OfficeLocation.ToString();
         }
 
         private void btnViewRoster_Click(object sender, EventArgs e)

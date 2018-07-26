@@ -18,5 +18,9 @@ namespace AggregationAssignment
         public int Credits { get; set; }
         public string ClassNumber { get; set; }
         public string Title { get; set; }
+        public string CLDescription { get; set; }
+        public Nullable<int> InstID { get; set; }
+    
+        public virtual Instructor Instructor { get; set; }
     }
 }
