@@ -21,7 +21,7 @@ GO
 
 INSERT INTO Instructor(Name, Email, OfficeLocation)
 	VALUES('Joseph Ortiz', 'joseph.ortiz@cptc.edu', '11-111E')
-	,('Kenneth Meerdink', '	kenneth.meerdink@cptc.edu', '11-111W')
+	,('Kenneth Meerdink', 'kenneth.meerdink@cptc.edu', '11-111W')
 
 CREATE TABLE Class
 (
@@ -57,26 +57,83 @@ INSERT INTO Class(Credits, ClassNumber,Title, CLDescription,InstID)
 
 CREATE TABLE Students
 (
-	
-	FirstName			varchar(50)	NOT NULL
+	StudentID	int	PRIMARY KEY IDENTITY
+	,FirstName			varchar(50)	NOT NULL
 	,LastName			varchar(50)	NOT NULL
-	,Class1				int			Not Null
-	,Class2				int
-	,Class3				int
 )
 
 INSERT INTO Students(FirstName, LastName)
 	VALUES('Robert', 'Wood')
 	,('Anthony', 'McCann')
 	,('Anthony', 'Ardiente')
-	,('Krista', 'Betcher')
+	,('Krista', 'Betcher' )
 	,('Nicholas', 'Carranza')
 	,('Amysha', 'Dixon')
-	,('Casey', 'Gruse')
+	,('Casey', 'Gruse' )
 	,('Jeanna', 'Kawamoto')
-	,('Michelle', 'Mcgowan')
+	,('Michelle', 'Mcgowan' )
 	,('Jake', 'Mettler')
-	,('Nelson', 'Nyland')
+	,('Nelson', 'Nyland' )
 	,('Nicholas', 'Olmstead')
 	,('Dakota', 'Tominus')
 
+
+CREATE TABLE ClassesIn
+(
+	StudentID		int Foreign KEY References Students(StudentID) Not Null
+	,ClassID		int Foreign KEY References Class(ClassID) Not Null
+	,Primary Key (StudentID, ClassID)
+)
+
+INSERT INTO ClassesIn(StudentID, ClassID)
+	VALUES(1, 10)
+	,(1,11)
+	,(1,17)
+
+	,(2,10)
+	,(2,11)
+	,(2,17)
+	
+	,(3,3)
+	,(3,4)
+	,(3,2)
+
+	,(4,10)
+	,(4,11)
+	,(4,17)
+	
+	,(5,10)
+	,(5,11)
+	,(5,4)	
+	
+	,(6,10)
+	,(6,11)
+	,(6,17)
+
+	,(7,10)
+	,(7,11)
+	,(7,17)
+	
+	,(8,10)
+	,(8,11)
+	,(8,3)
+	
+	,(9,10)
+	,(9,11)
+	,(9,17)
+
+	,(10,10)
+	,(10,11)
+	,(10,17)	
+
+	,(11,10)
+	,(11,11)
+	,(11,17)	
+
+	,(12, 6)
+	,(12,3)
+	,(12,8)	
+
+	,(13, 10)
+	,(13,11)
+	,(13,17)

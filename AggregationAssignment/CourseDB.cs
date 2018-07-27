@@ -48,39 +48,61 @@ namespace AggregationAssignment
             return courseTitle;
         }
 
-
-        // must add and do joins
-        public static Class GetTeacherName(String course)
+        public static Instructor GetTeacherName(String course)
         {
             ClassInfoEntities context = new ClassInfoEntities();
             var Name = (from c in context.Classes
                         join t in context.Instructors on c.InstID equals t.InstID
-                        where c.ClassNumber.Equals(course)
-                        select c).Single();
+                        where c.ClassNumber.Equals(course) 
+                        select t).Single();
             return Name;
-
-            // select s.*
-            // from Service s
-            // inner join ServiceAssignment sa on sa.ServiceId = s.Id
-            // where sa.LocationId = 1
-
-            // from s in db.Services
-            // join sa in db.ServiceAssignments on s.Id equals sa.ServiceId
-            // where sa.LocationId == 1
-            // select s
 
         }
 
-        //public static Class GetTeacherEmail(String course)
-        //{
-        //    ClassInfoEntities context = new ClassInfoEntities();
-        //}
+        public static Instructor GetTeacherEmail(String course)
+        {
+            ClassInfoEntities context = new ClassInfoEntities();
+            var Email = (from c in context.Classes
+                        join t in context.Instructors on c.InstID equals t.InstID
+                        where c.ClassNumber.Equals(course)
+                        select t).Single();
+            return Email;
+        }
 
-        //public static Class GetTeacherOffice(String course)
-        //{
-        //    ClassInfoEntities context = new ClassInfoEntities();
-        //}
+        public static Instructor GetTeacherOffice(String course)
+        {
+            ClassInfoEntities context = new ClassInfoEntities();
+            var OfficeLocation = (from c in context.Classes
+                        join t in context.Instructors on c.InstID equals t.InstID
+                        where c.ClassNumber.Equals(course)
+                        select t).Single();
+            return OfficeLocation;
+        }
 
+        public static List<Student> GetAllStudents(String course)
+        {
+            ClassInfoEntities context = new ClassInfoEntities();
+            ////var AllStudents = 
+            //            (from  StudentList in context.Students
+            //             where StudentList.Classes.Contains(course)
+            //             select StudentList);
+            //var StudentsInCourse =
+            //    (from student in AllStudents
+            //     where student.
+
+            //     )
+
+            var AllStudents =
+                (
+                 from c in context.Classes
+                 where c.ClassNumber == course
+                 select c.Students
+                 ).Single().ToList();
+
+
+
+            return AllStudents;
+        }
 
     }
 }

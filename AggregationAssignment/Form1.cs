@@ -12,7 +12,11 @@ namespace AggregationAssignment
 {
     public partial class frmMain : Form
     {
-        public string course;
+        public string GetCourse()
+        {
+            String course = cbClasses.Text;
+            return course;
+        }
 
         public frmMain()
         {
@@ -39,10 +43,8 @@ namespace AggregationAssignment
                 pnlDetails.Visible = true;
                 btnCourseDetails.Text = "Close Course Details";
             }
+            String course = GetCourse();
 
-            course = cbClasses.Text; // variable of which class is picked
-
-            
             var courseCredits = CourseDB.GetCourseCredits(course);
             txtCredits.Text = courseCredits.Credits.ToString();
 
@@ -56,8 +58,6 @@ namespace AggregationAssignment
             
         }
 
-
-
         private void btnViewInstructor_Click(object sender, EventArgs e)
         {
             if (gbInstructor.Visible == true)
@@ -70,15 +70,15 @@ namespace AggregationAssignment
                 gbInstructor.Visible = true;
                 btnViewInstructor.Text = "Close Instructor Info";
             }
-
+            String course = GetCourse();
             var name = CourseDB.GetTeacherName(course);
             txtName.Text = name.Name.ToString();
 
-           // var email = CourseDB.GetTeacherEmail(course);
-           // txtEmail.Text = email.Email.ToString();
+            var email = CourseDB.GetTeacherEmail(course);
+            txtEmail.Text = email.Email.ToString();
 
-            // var office = CourseDB.GetTeacherOffice(course);
-            // txtOffice.Text = office.OfficeLocation.ToString();
+            var office = CourseDB.GetTeacherOffice(course);
+            txtOffice.Text = office.OfficeLocation.ToString();
         }
 
         private void btnViewRoster_Click(object sender, EventArgs e)
@@ -93,6 +93,18 @@ namespace AggregationAssignment
                 gbRoster.Visible = true;
                 btnViewRoster.Text = "Close Roster Info";
             }
+            String course = GetCourse();
+            var students = CourseDB.GetAllStudents(course);
+
+            string studentsInClass = "";
+            foreach (var student in students)
+            {
+                studentsInClass += student.FirstName + student.LastName + " ";
+            }
+
+            rtbStudents.Text = studentsInClass; //students.ToString();
+            
+            txtNumStudents.Text = students.Count().ToString(); // code for the student count in the class
         }
 
         private void cbClasses_SelectedIndexChanged(object sender, EventArgs e)

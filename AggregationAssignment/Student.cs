@@ -12,23 +12,19 @@ namespace AggregationAssignment
     using System;
     using System.Collections.Generic;
     
-    public partial class Class
+    public partial class Student
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Class()
+        public Student()
         {
-            this.Students = new HashSet<Student>();
+            this.Classes = new HashSet<Class>();
         }
     
-        public int ClassID { get; set; }
-        public int Credits { get; set; }
-        public string ClassNumber { get; set; }
-        public string Title { get; set; }
-        public string CLDescription { get; set; }
-        public Nullable<int> InstID { get; set; }
+        public int StudentID { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     
-        public virtual Instructor Instructor { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Student> Students { get; set; }
+        public virtual ICollection<Class> Classes { get; set; }
     }
 }

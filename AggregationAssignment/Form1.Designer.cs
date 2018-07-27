@@ -39,10 +39,10 @@
             this.pnlSpecs = new System.Windows.Forms.Panel();
             this.gbInstructor = new System.Windows.Forms.GroupBox();
             this.txtOffice = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtEmail = new System.Windows.Forms.TextBox();
             this.txtName = new System.Windows.Forms.TextBox();
             this.lblOffice = new System.Windows.Forms.Label();
-            this.txtEmail = new System.Windows.Forms.Label();
+            this.lblEmail = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
             this.gbRoster = new System.Windows.Forms.GroupBox();
             this.rtbStudents = new System.Windows.Forms.RichTextBox();
@@ -153,10 +153,10 @@
             // gbInstructor
             // 
             this.gbInstructor.Controls.Add(this.txtOffice);
-            this.gbInstructor.Controls.Add(this.textBox2);
+            this.gbInstructor.Controls.Add(this.txtEmail);
             this.gbInstructor.Controls.Add(this.txtName);
             this.gbInstructor.Controls.Add(this.lblOffice);
-            this.gbInstructor.Controls.Add(this.txtEmail);
+            this.gbInstructor.Controls.Add(this.lblEmail);
             this.gbInstructor.Controls.Add(this.lblName);
             this.gbInstructor.Location = new System.Drawing.Point(3, 14);
             this.gbInstructor.Name = "gbInstructor";
@@ -173,12 +173,12 @@
             this.txtOffice.Size = new System.Drawing.Size(137, 20);
             this.txtOffice.TabIndex = 5;
             // 
-            // textBox2
+            // txtEmail
             // 
-            this.textBox2.Location = new System.Drawing.Point(91, 62);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(137, 20);
-            this.textBox2.TabIndex = 4;
+            this.txtEmail.Location = new System.Drawing.Point(91, 62);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(137, 20);
+            this.txtEmail.TabIndex = 4;
             // 
             // txtName
             // 
@@ -196,14 +196,14 @@
             this.lblOffice.TabIndex = 2;
             this.lblOffice.Text = "Office Location:";
             // 
-            // txtEmail
+            // lblEmail
             // 
-            this.txtEmail.AutoSize = true;
-            this.txtEmail.Location = new System.Drawing.Point(6, 69);
-            this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(39, 13);
-            this.txtEmail.TabIndex = 1;
-            this.txtEmail.Text = "E-Mail:";
+            this.lblEmail.AutoSize = true;
+            this.lblEmail.Location = new System.Drawing.Point(6, 69);
+            this.lblEmail.Name = "lblEmail";
+            this.lblEmail.Size = new System.Drawing.Size(39, 13);
+            this.lblEmail.TabIndex = 1;
+            this.lblEmail.Text = "E-Mail:";
             // 
             // lblName
             // 
@@ -361,10 +361,10 @@
         private System.Windows.Forms.RichTextBox rtbDescription;
         private System.Windows.Forms.GroupBox gbInstructor;
         private System.Windows.Forms.TextBox txtOffice;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Label lblOffice;
-        private System.Windows.Forms.Label txtEmail;
+        private System.Windows.Forms.Label lblEmail;
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.GroupBox gbRoster;
         private System.Windows.Forms.TextBox txtNumStudents;

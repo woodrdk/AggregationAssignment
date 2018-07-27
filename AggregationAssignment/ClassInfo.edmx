@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ClassInfoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ClassInfoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Class">
           <Key>
             <PropertyRef Name="ClassID" />
@@ -16,6 +16,14 @@
           <Property Name="CLDescription" Type="varchar" MaxLength="5000" Nullable="false" />
           <Property Name="InstID" Type="int" />
         </EntityType>
+        <EntityType Name="ClassesIn">
+          <Key>
+            <PropertyRef Name="StudentID" />
+            <PropertyRef Name="ClassID" />
+          </Key>
+          <Property Name="StudentID" Type="int" Nullable="false" />
+          <Property Name="ClassID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Instructor">
           <Key>
             <PropertyRef Name="InstID" />
@@ -25,6 +33,14 @@
           <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="OfficeLocation" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="Students">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <Association Name="FK__Class__InstID__398D8EEE">
           <End Role="Instructor" Type="Self.Instructor" Multiplicity="0..1" />
           <End Role="Class" Type="Self.Class" Multiplicity="*" />
@@ -37,44 +53,100 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__ClassesIn__Class__3F466844">
+          <End Role="Class" Type="Self.Class" Multiplicity="1" />
+          <End Role="ClassesIn" Type="Self.ClassesIn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="ClassesIn">
+              <PropertyRef Name="ClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ClassesIn__Stude__3E52440B">
+          <End Role="Students" Type="Self.Students" Multiplicity="1" />
+          <End Role="ClassesIn" Type="Self.ClassesIn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="ClassesIn">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ClassInfoModelStoreContainer">
           <EntitySet Name="Class" EntityType="Self.Class" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClassesIn" EntityType="Self.ClassesIn" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Instructor" EntityType="Self.Instructor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Class__InstID__398D8EEE" Association="Self.FK__Class__InstID__398D8EEE">
             <End Role="Instructor" EntitySet="Instructor" />
             <End Role="Class" EntitySet="Class" />
           </AssociationSet>
+          <AssociationSet Name="FK__ClassesIn__Class__3F466844" Association="Self.FK__ClassesIn__Class__3F466844">
+            <End Role="Class" EntitySet="Class" />
+            <End Role="ClassesIn" EntitySet="ClassesIn" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ClassesIn__Stude__3E52440B" Association="Self.FK__ClassesIn__Stude__3E52440B">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="ClassesIn" EntitySet="ClassesIn" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ClassInfoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ClassInfoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Classes" EntityType="ClassInfoModel.Class" />
+          <EntitySet Name="Instructors" EntityType="ClassInfoModel.Instructor" />
+          <EntitySet Name="Students" EntityType="ClassInfoModel.Student" />
+          <AssociationSet Name="FK__Class__InstID__398D8EEE" Association="ClassInfoModel.FK__Class__InstID__398D8EEE">
+            <End Role="Instructor" EntitySet="Instructors" />
+            <End Role="Class" EntitySet="Classes" />
+          </AssociationSet>
+          <AssociationSet Name="ClassesIn" Association="ClassInfoModel.ClassesIn">
+            <End Role="Class" EntitySet="Classes" />
+            <End Role="Student" EntitySet="Students" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Class">
           <Key>
             <PropertyRef Name="ClassID" />
           </Key>
           <Property Name="ClassID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Credits" Type="Int32" Nullable="false" />
-          <Property Name="ClassNumber" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CLDescription" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ClassNumber" Type="String" Nullable="false" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CLDescription" Type="String" Nullable="false" MaxLength="5000" FixedLength="false" Unicode="false" />
           <Property Name="InstID" Type="Int32" />
-          <NavigationProperty Name="Instructor" Relationship="Self.FK__Class__InstID__398D8EEE" FromRole="Class" ToRole="Instructor" />
+          <NavigationProperty Name="Instructor" Relationship="ClassInfoModel.FK__Class__InstID__398D8EEE" FromRole="Class" ToRole="Instructor" />
+          <NavigationProperty Name="Students" Relationship="ClassInfoModel.ClassesIn" FromRole="Class" ToRole="Student" />
         </EntityType>
         <EntityType Name="Instructor">
           <Key>
             <PropertyRef Name="InstID" />
           </Key>
           <Property Name="InstID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="OfficeLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Classes" Relationship="Self.FK__Class__InstID__398D8EEE" FromRole="Instructor" ToRole="Class" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OfficeLocation" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Classes" Relationship="ClassInfoModel.FK__Class__InstID__398D8EEE" FromRole="Instructor" ToRole="Class" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Classes" Relationship="ClassInfoModel.ClassesIn" FromRole="Student" ToRole="Class" />
         </EntityType>
         <Association Name="FK__Class__InstID__398D8EEE">
-          <End Role="Instructor" Type="Self.Instructor" Multiplicity="0..1" />
-          <End Role="Class" Type="Self.Class" Multiplicity="*" />
+          <End Type="ClassInfoModel.Instructor" Role="Instructor" Multiplicity="0..1" />
+          <End Type="ClassInfoModel.Class" Role="Class" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Instructor">
               <PropertyRef Name="InstID" />
@@ -84,14 +156,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ClassInfoEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Classes" EntityType="Self.Class" />
-          <EntitySet Name="Instructors" EntityType="Self.Instructor" />
-          <AssociationSet Name="FK__Class__InstID__398D8EEE" Association="Self.FK__Class__InstID__398D8EEE">
-            <End Role="Instructor" EntitySet="Instructors" />
-            <End Role="Class" EntitySet="Classes" />
-          </AssociationSet>
-        </EntityContainer>
+        <Association Name="ClassesIn">
+          <End Type="ClassInfoModel.Class" Role="Class" Multiplicity="*" />
+          <End Type="ClassInfoModel.Student" Role="Student" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -101,25 +169,42 @@
           <EntitySetMapping Name="Classes">
             <EntityTypeMapping TypeName="ClassInfoModel.Class">
               <MappingFragment StoreEntitySet="Class">
-                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
-                <ScalarProperty Name="Credits" ColumnName="Credits" />
-                <ScalarProperty Name="ClassNumber" ColumnName="ClassNumber" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="CLDescription" ColumnName="CLDescription" />
                 <ScalarProperty Name="InstID" ColumnName="InstID" />
+                <ScalarProperty Name="CLDescription" ColumnName="CLDescription" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ClassNumber" ColumnName="ClassNumber" />
+                <ScalarProperty Name="Credits" ColumnName="Credits" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Instructors">
             <EntityTypeMapping TypeName="ClassInfoModel.Instructor">
               <MappingFragment StoreEntitySet="Instructor">
-                <ScalarProperty Name="InstID" ColumnName="InstID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="OfficeLocation" ColumnName="OfficeLocation" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="InstID" ColumnName="InstID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="ClassInfoModel.Student">
+              <MappingFragment StoreEntitySet="Students">
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ClassesIn" TypeName="ClassInfoModel.ClassesIn" StoreEntitySet="ClassesIn">
+            <EndProperty Name="Student">
+              <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+            </EndProperty>
+            <EndProperty Name="Class">
+              <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
