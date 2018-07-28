@@ -99,16 +99,22 @@ namespace AggregationAssignment
             string studentsInClass = "";
             foreach (var student in students)
             {
-                studentsInClass += student.FirstName + student.LastName + " ";
+                studentsInClass += student.FirstName + student.LastName + Environment.NewLine;
             }
 
             rtbStudents.Text = studentsInClass; //students.ToString();
-            
             txtNumStudents.Text = students.Count().ToString(); // code for the student count in the class
         }
 
         private void cbClasses_SelectedIndexChanged(object sender, EventArgs e)
         {
+            pnlDetails.Visible = false;
+            btnCourseDetails.Text = "View Course Details";
+            gbInstructor.Visible = false;
+            btnViewInstructor.Text = "View Instructor Info";
+            gbRoster.Visible = false;
+            btnViewRoster.Text = "View Roster Info";
+
 
         }
     }
